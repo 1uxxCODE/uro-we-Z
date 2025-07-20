@@ -1,0 +1,121 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>🎁 Prezent dla Weroniki</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #111;
+      overflow: hidden;
+      font-family: monospace;
+      color: white;
+    }
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    #gift {
+      font-size: 60px;
+      cursor: pointer;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .flower {
+      position: absolute;
+      font-size: 24px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    #bouquet {
+      white-space: pre;
+      font-size: 16px;
+      text-align: center;
+      display: none;
+      margin-top: 20px;
+      color: lightpink;
+    }
+
+    #message {
+      font-size: 24px;
+      color: gold;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="center" id="main">
+  <div id="gift" onclick="startSurprise()">🎁</div>
+  <div style="margin-top: 10px;">Kliknij prezent!</div>
+</div>
+
+<pre id="bouquet"></pre>
+<div id="message"></div>
+
+<script>
+  const flowers = ['✿','❀','🌸','🌺','🌻','🌼'];
+  const colors = ['hotpink', 'gold', 'violet', 'orange', 'deepskyblue', 'lightgreen', 'lightcoral'];
+
+  function createFlower() {
+    const flower = document.createElement('div');
+    flower.className = 'flower';
+    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+    flower.style.left = Math.random() * window.innerWidth + 'px';
+    flower.style.animationDuration = (3 + Math.random() * 2) + 's';
+    flower.style.color = colors[Math.floor(Math.random() * colors.length)];
+    flower.style.opacity = Math.random();
+    flower.style.fontSize = (20 + Math.random() * 20) + 'px';
+    document.body.appendChild(flower);
+    setTimeout(() => flower.remove(), 6000);
+  }
+
+  function startSurprise() {
+    document.getElementById("main").style.display = "none";
+    
+    // Zacznij opadanie kwiatów
+    const interval = setInterval(createFlower, 200);
+    
+    // Po 5 sekundach – pokaz bukiet i wiadomość
+    setTimeout(() => {
+      clearInterval(interval);
+      showBouquet();
+    }, 5000);
+  }
+
+  function showBouquet() {
+    const bouquet = `     
+    `;
+
+    document.getElementById("bouquet").textContent = bouquet;
+    document.getElementById("bouquet").style.display = "block";
+    document.getElementById("message").innerHTML = "🌟<center>Z okazji urodzin życzę Ci, abyś zawsze była otoczona miłością i wsparciem bliskich. Niech ten dzień będzie wyjątkowy, a nadchodzące dni pełne niezapomnianych chwil. Sto lal Weroniko!</center> 🌟";
+    document.getElementById("message").style.display = "block";
+  }
+</script>
+
+</body>
+</html>
